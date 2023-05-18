@@ -33,6 +33,7 @@ export const Button: ComponentStyleConfig = {
     },
     oauth: {
       height: "34px",
+      mb: "2",
       border: "1px solid",
       borderColor: "gray.300",
       _hover: {
