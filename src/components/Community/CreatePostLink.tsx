@@ -3,7 +3,7 @@ import { auth } from "@/src/firebase/clientApp";
 import { Flex, Icon, Input } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BsLink45Deg } from "react-icons/bs";
 import { FaReddit } from "react-icons/fa";
@@ -24,11 +24,13 @@ const CreatePostLink: React.FC<CreatePostProps> = () => {
       setAuthModalState({ open: true, view: "login" });
       return;
     }
-    const { community: communityId } = router.query;
-
-    router.push(`/r/${router.query.community}/submit`);
-    return;
+    const { communityId } = router.query;
+    if (communityId) {
+      router.push(`/r/${communityId}/submit`);
+      return;
+    }
   };
+
   return (
     <Flex
       justify="space-evenly"
