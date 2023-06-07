@@ -6,6 +6,7 @@ import { User } from "firebase/auth";
 import {
   addDoc,
   collection,
+  getDoc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -81,19 +82,18 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
     try {
       //Store the post in db
       const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
-
       //Check selectedFile
       if (selectedFile) {
         //Store file in storage
         const imageRef = ref(storage, `posts/${postDocRef.id}/image`);
         await uploadString(imageRef, selectedFile, "data_url");
         const downloadURL = await getDownloadURL(imageRef);
-
         //Update post doc by adding imgURL
         await updateDoc(postDocRef, {
           imageURL: downloadURL,
         });
       }
+      router.back();
     } catch (error: any) {
       console.log("handleCreatePost error: ", error.message);
       setError(true);
@@ -101,7 +101,6 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
     setLoading(false);
 
     //Redirect the user to the communityPage using the router
-    // router.back();
   };
 
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {

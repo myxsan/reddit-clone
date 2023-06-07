@@ -41,6 +41,7 @@ const TextInputs: React.FC<TextInputsProps> = ({
       />
       <Textarea
         name="body"
+        onChange={onChange}
         value={textInputs.body}
         fontSize="10pt"
         height="100px"
