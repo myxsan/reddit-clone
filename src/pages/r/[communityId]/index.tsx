@@ -1,4 +1,5 @@
-import { Community } from "@/src/atoms/communitiesAtom";
+import { Community, communityState } from "@/src/atoms/communitiesAtom";
+import About from "@/src/components/Community/About";
 import CommunityNotFound from "@/src/components/Community/CommunityNotFound";
 import CreatePostLink from "@/src/components/Community/CreatePostLink";
 import Header from "@/src/components/Community/Header";
@@ -7,7 +8,8 @@ import Posts from "@/src/components/Posts/Posts";
 import { firestore } from "@/src/firebase/clientApp";
 import { doc, getDoc } from "firebase/firestore";
 import { GetServerSidePropsContext } from "next";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 import safeJsonStringify from "safe-json-stringify";
 
 type CommunityPageProps = {
@@ -15,10 +17,20 @@ type CommunityPageProps = {
 };
 
 const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
+  const setCommunityStateValue = useSetRecoilState(communityState);
+
+  useEffect(() => {
+    setCommunityStateValue((prev) => ({
+      ...prev,
+      currentCommunity: communityData,
+    }));
+  }, []);
+
   if (!communityData) {
     console.log(communityData);
     return <CommunityNotFound />;
   }
+
   return (
     <>
       <Header communityData={communityData} />
@@ -28,7 +40,7 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
           <Posts communityData={communityData} />
         </>
         <>
-          <div>RHS</div>
+          <About communityData={communityData} />
         </>
       </PageContent>
     </>
@@ -43,12 +55,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       context.query.communityId as string
     );
     const communityDoc = await getDoc(communityDocRef);
-
     return {
       props: {
         communityData: communityDoc.exists()
           ? JSON.parse(
-              safeJsonStringify({ id: communityDoc.id, ...communityDoc.data })
+              safeJsonStringify({ id: communityDoc.id, ...communityDoc.data() })
             )
           : "",
       },

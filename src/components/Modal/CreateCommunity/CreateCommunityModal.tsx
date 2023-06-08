@@ -1,29 +1,23 @@
 import { auth, firestore } from "@/src/firebase/clientApp";
 import {
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
   Box,
-  Divider,
-  Text,
-  Input,
-  Stack,
+  Button,
   Checkbox,
+  Divider,
   Flex,
   Icon,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
-import {
-  doc,
-  getDoc,
-  runTransaction,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
+import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
@@ -76,7 +70,6 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
         //check community is exists in db
         if (communityDoc.exists()) {
           throw new Error(`Sorry, r/${communityName} is taken. Try another.`);
-          return;
         }
 
         //create community

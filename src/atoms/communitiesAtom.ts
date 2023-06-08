@@ -13,12 +13,12 @@ export interface Community {
 export interface CommunitySnippet {
   communityId: string;
   isModerator?: boolean;
-  imageUrl?: string;
+  imageURL?: string;
 }
 
 interface CommunityState {
   mySnippets: CommunitySnippet[];
-  // visitedCommunities
+  currentCommunity?: Community;
 }
 
 const defaultCommunityState: CommunityState = {
