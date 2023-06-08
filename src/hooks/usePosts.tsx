@@ -11,8 +11,8 @@ const usePosts = () => {
   const onSelectPost = () => {};
   const onDeletePost = async (post: Post): Promise<boolean> => {
     try {
-      if (post.imageUrl) {
-        const imageRef = ref(storage, `posts/${post.id}`);
+      if (post.imageURL) {
+        const imageRef = ref(storage, `posts/${post.id}/image`);
         await deleteObject(imageRef);
       }
 
@@ -24,7 +24,9 @@ const usePosts = () => {
         posts: prev.posts.filter((item) => item.id !== post.id),
       }));
       return true;
-    } catch (error) {
+    } catch (error: any) {
+      console.log("onDelete error: ", error.message);
+
       return false;
     }
   };

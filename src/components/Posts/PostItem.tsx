@@ -47,11 +47,6 @@ const PostItem: React.FC<PostItemProps> = ({
     }
   };
 
-  useEffect(() => {
-    console.log(post);
-    console.log(post.imageUrl);
-  });
-
   return (
     <Flex
       bg="white"
@@ -104,14 +99,14 @@ const PostItem: React.FC<PostItemProps> = ({
             {post.title}
           </Text>
           <Text fontSize="10pt">{post.body}</Text>
-          {post.imageUrl && (
+          {post.imageURL && (
             <Flex justify="center" align="center">
               {loadingImage && (
                 <Skeleton height="200px" width="100px" borderRadius={4} />
               )}
               <Image
                 alt="postImage"
-                src={post.imageUrl}
+                src={post.imageURL}
                 maxHeight="460px"
                 display={loadingImage ? "none" : "unset"}
                 onLoad={() => setLoadingImage(false)}
