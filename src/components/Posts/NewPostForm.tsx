@@ -6,7 +6,6 @@ import { User } from "firebase/auth";
 import {
   addDoc,
   collection,
-  getDoc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
