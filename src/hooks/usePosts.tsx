@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Post, PostVote, postState } from "../atoms/postsAtom";
 import { deleteObject, ref } from "firebase/storage";
@@ -18,6 +18,8 @@ import { authModalState } from "../atoms/authModalAtom";
 import { useRouter } from "next/router";
 
 const usePosts = () => {
+  const [voteLoading, setVoteLoading] = useState(false);
+
   const [user] = useAuthState(auth);
   const [postStateValue, setPostStateValue] = useRecoilState(postState);
   const currentCommunity = useRecoilValue(communityState).currentCommunity;
@@ -31,6 +33,8 @@ const usePosts = () => {
     communityId: string
   ) => {
     event.stopPropagation();
+    if (voteLoading) return;
+    setVoteLoading(true);
     if (!user?.uid) {
       setAuthModalState({ open: true, view: "login" });
       return;
@@ -123,6 +127,8 @@ const usePosts = () => {
     } catch (error) {
       console.log("onVote error: ", error);
     }
+    console.log(voteLoading);
+    setVoteLoading(false);
   };
 
   const onSelectPost = (post: Post) => {

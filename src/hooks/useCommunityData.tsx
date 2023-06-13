@@ -24,12 +24,14 @@ const useCommunityData = () => {
   const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState);
   const setAuthModalState = useSetRecoilState(authModalState);
-  const [loading, setLoading] = useState(false);
+  const [joinOrLeaveLoading, setJoinOrLeaveLoading] = useState(false);
   const [error, setError] = useState("");
   const onJoinOrLeaveCommunity = (
     communityData: Community,
     isJoined: boolean
   ) => {
+    if (joinOrLeaveLoading) return;
+
     if (!user) {
       setAuthModalState({ open: true, view: "login" });
       return;
@@ -43,7 +45,7 @@ const useCommunityData = () => {
   };
 
   const getMySnippets = async () => {
-    setLoading(true);
+    setJoinOrLeaveLoading(true);
     try {
       const snippetDocs = await getDocs(
         collection(firestore, `users/${user?.uid}/communitySnippets`)
@@ -59,7 +61,7 @@ const useCommunityData = () => {
       console.log("getMySnippets error: ", error);
       setError(error.message);
     }
-    setLoading(false);
+    setJoinOrLeaveLoading(false);
   };
 
   const getCommunityData = async (communityId: string) => {
@@ -100,7 +102,7 @@ const useCommunityData = () => {
   }, [router.query, communityStateValue.currentCommunity]);
 
   const joinCommunity = async (communityData: Community) => {
-    setLoading(true);
+    setJoinOrLeaveLoading(true);
     try {
       const batch = writeBatch(firestore);
       const newSnippet: CommunitySnippet = {
@@ -122,20 +124,20 @@ const useCommunityData = () => {
         numberOfMembers: increment(1),
       });
 
-      await batch.commit();
-
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: [...prev.mySnippets, newSnippet],
       }));
+
+      await batch.commit();
     } catch (error: any) {
       console.log("Join Community error: ", error);
       setError(error.message);
     }
-    setLoading(false);
+    setJoinOrLeaveLoading(false);
   };
   const leaveCommunity = async (communityId: string) => {
-    setLoading(true);
+    setJoinOrLeaveLoading(true);
     try {
       const batch = writeBatch(firestore);
       batch.delete(
@@ -146,24 +148,24 @@ const useCommunityData = () => {
         numberOfMembers: increment(-1),
       });
 
-      await batch.commit();
-
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: [
           ...prev.mySnippets.filter((item) => item.communityId !== communityId),
         ],
       }));
+
+      await batch.commit();
     } catch (error: any) {
       console.log("leaveCommunity error: ", error);
       setError(error.message);
     }
-    setLoading(false);
+    setJoinOrLeaveLoading(false);
   };
   return {
     communityStateValue,
     onJoinOrLeaveCommunity,
-    loading,
+    joinOrLeaveLoading,
   };
 };
 export default useCommunityData;
