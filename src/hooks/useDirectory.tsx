@@ -37,8 +37,9 @@ const useDirectory = () => {
 
   useEffect(() => {
     const { currentCommunity } = communityStateValue;
+    const { communityId } = router.query;
 
-    if (currentCommunity) {
+    if (currentCommunity && currentCommunity.id === communityId) {
       setDirectoryState((prev) => ({
         ...prev,
         selectedMenuItem: {
