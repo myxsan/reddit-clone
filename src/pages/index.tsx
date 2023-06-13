@@ -1,11 +1,4 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import PageContent from "../components/Layout/PageContent";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "../firebase/clientApp";
-import { useEffect, useState } from "react";
+import { Stack } from "@chakra-ui/react";
 import {
   collection,
   getDocs,
@@ -14,15 +7,17 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import usePosts from "../hooks/usePosts";
-import { Post } from "../atoms/postsAtom";
-import PostLoader from "../components/Posts/PostLoader";
-import { Stack } from "@chakra-ui/react";
-import PostItem from "../components/Posts/PostItem";
+import { Inter } from "next/font/google";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Post, PostVote } from "../atoms/postsAtom";
 import CreatePostLink from "../components/Community/CreatePostLink";
-import { useRecoilValue } from "recoil";
-import { communityState } from "../atoms/communitiesAtom";
+import PageContent from "../components/Layout/PageContent";
+import PostItem from "../components/Posts/PostItem";
+import PostLoader from "../components/Posts/PostLoader";
+import { auth, firestore } from "../firebase/clientApp";
 import useCommunityData from "../hooks/useCommunityData";
+import usePosts from "../hooks/usePosts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -96,7 +91,28 @@ export default function Home() {
     setLoading(false);
   };
 
-  const getUserPostVotes = () => {};
+  const getUserPostVotes = async () => {
+    try {
+      const postIds = postStateValue.posts.map((post) => post.id);
+      const postVotesQuery = query(
+        collection(firestore, `users/${user?.uid}/postVotes`),
+        where("postId", "in", postIds)
+      );
+
+      const postVotesDocs = getDocs(postVotesQuery);
+      const postVotes = (await postVotesDocs).docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: postVotes as PostVote[],
+      }));
+    } catch (error) {
+      console.log("getUserPostVotes error: ", error);
+    }
+  };
 
   useEffect(() => {
     if (communityStateValue.snippetsFetched) buildUserHomeFeed();
@@ -105,6 +121,18 @@ export default function Home() {
   useEffect(() => {
     if (!user && !loadingUser) buildNoUserHomeFeed();
   }, [user, loadingUser]);
+
+  useEffect(() => {
+    if (user && postStateValue.posts.length) getUserPostVotes();
+
+    return () => {
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: [],
+      }));
+    };
+  }, [user, postStateValue.posts]);
+
   return (
     <PageContent>
       <>
