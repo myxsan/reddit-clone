@@ -8,7 +8,6 @@ const Premium: React.FC = () => {
       direction="column"
       bg="white"
       borderRadius={4}
-      cursor="pointer"
       p="12px"
       border="1px solid"
       borderColor="gray.300"
