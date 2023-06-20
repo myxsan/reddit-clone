@@ -1,38 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+<a href="https://github.com/myxsan/reddit-clone/graphs/contributors"><img src="https://img.shields.io/github/contributors/myxsan/reddit-clone.svg?style=for-the-badge"></a>
+<a href="https://github.com/myxsan/reddit-clone/network/members"><img src="https://img.shields.io/github/forks/myxsan/reddit-clone.svg?style=for-the-badge"></a>
+<a href="https://github.com/myxsan/reddit-clone/stargazers"><img src="https://img.shields.io/github/stars/myxsan/reddit-clone.svg?style=for-the-badge"></a>
+<a href="https://github.com/myxsan/reddit-clone/issues"><img src="https://img.shields.io/github/issues/myxsan/reddit-clone.svg?style=for-the-badge"></a>
+<a href="https://www.linkedin.com/in/myxsan/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
+</div>
 
-## Getting Started
+<br />
+<p align="center">
+  <h2 align="center">Reddit Clone</h2>
+  <p align="center">
+  Reddit clone Project which allows users to sign up, log in or out, create or join-leave communities, post texts and images, vote posts, and commment on posts.
+    <br />
+    <br />
+    <a href="https://github.com/myxsan/reddit-clone/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/myxsan/reddit-clone/issues">Request Feature</a>
+  </p>
+</p>
 
-First, run the development server:
+# About the Project
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+###### Feed:
+![reddit-clone](https://imgur.com/EojDIkc.png)
+###### Sing In Modal:
+![reddit-clone](https://imgur.com/uqmSsuY.png)
+###### Create Community Modal:
+![reddit-clone](https://imgur.com/cTL487z.png)
+###### Community Page:
+![reddit-clone](https://imgur.com/V0KYTDN.png)
+###### Create Post Page:
+![reddit-clone](https://imgur.com/ZJeDnfV.png)
+###### Single Post Page:
+![reddit-clone](https://imgur.com/70N1c7O.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Built with
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+[![React](https://img.shields.io/badge/React-007ACC?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Typescript](https://img.shields.io/badge/Typescript-red?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![ChakraUi](https://img.shields.io/badge/chakraui-569DAA?style=for-the-badge&logo=chakraui&logoColor=white)](https://chakra-ui.com/)
+[![Firebase](https://img.shields.io/badge/firebase-orange?style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Contributing
 
-## Learn More
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-To learn more about Next.js, take a look at the following resources:
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Musa Yüksel - [Linkedin](https://www.linkedin.com/in/myxsan)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Project Link: [https://github.com/myxsan/reddit-clone](https://github.com/myxsan/reddit-clone)
