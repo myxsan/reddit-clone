@@ -79,7 +79,9 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
         <Stack>
           <Flex width="100%" p={2} fontSize="10pt">
             <Flex direction="column" flexGrow={1}>
-              <Text>{communityData.numberOfMembers.toLocaleString()}</Text>
+              {communityData.numberOfMembers && (
+                <Text>{communityData.numberOfMembers.toLocaleString()}</Text>
+              )}
               <Text>Members</Text>
             </Flex>
             <Flex direction="column" flexGrow={1}>
