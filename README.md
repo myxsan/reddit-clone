@@ -23,7 +23,7 @@
 
 ###### Feed:
 ![reddit-clone](https://imgur.com/EojDIkc.png)
-###### Sing In Modal:
+###### Log In Modal:
 ![reddit-clone](https://imgur.com/uqmSsuY.png)
 ###### Create Community Modal:
 ![reddit-clone](https://imgur.com/cTL487z.png)
